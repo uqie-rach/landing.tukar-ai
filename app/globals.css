@@ -1,0 +1,290 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-montserrat);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Updated color tokens to use only white, primary, and primaryLight colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  /* Updated to use only white, primary (rgba(67,116,186,1)), and primaryLight (rgba(112,163,235,1)) colors */
+  --background: #ffffff;
+  --foreground: rgba(58, 58, 60, 1);
+  --card: #ffffff;
+  --card-foreground: rgba(58, 58, 60, 1);
+  --popover: #ffffff;
+  --popover-foreground: rgba(58, 58, 60, 1);
+  --primary: rgba(67, 116, 186, 1);
+  --primary-foreground: #ffffff;
+  --secondary: rgba(112, 163, 235, 1);
+  --secondary-foreground: #ffffff;
+  --muted: #f8fafc;
+  --muted-foreground: rgba(58, 58, 60, 0.7);
+  --accent: rgba(112, 163, 235, 1);
+  --accent-foreground: #ffffff;
+  --destructive: #ff4d4d;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #ffffff;
+  --ring: rgba(112, 163, 235, 0.5);
+  --chart-1: rgba(67, 116, 186, 1);
+  --chart-2: rgba(112, 163, 235, 1);
+  --chart-3: #ffffff;
+  --chart-4: #f8fafc;
+  --chart-5: rgba(58, 58, 60, 1);
+  --radius: 0.5rem;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: rgba(58, 58, 60, 1);
+  --sidebar-primary: rgba(67, 116, 186, 1);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(112, 163, 235, 1);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: rgba(112, 163, 235, 0.5);
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: rgba(67, 116, 186, 1);
+  --primary-foreground: #ffffff;
+  --secondary: rgba(112, 163, 235, 1);
+  --secondary-foreground: #ffffff;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: rgba(112, 163, 235, 1);
+  --accent-foreground: #ffffff;
+  --destructive: #ff4d4d;
+  --destructive-foreground: #f8fafc;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: rgba(112, 163, 235, 0.5);
+  --chart-1: rgba(67, 116, 186, 1);
+  --chart-2: rgba(112, 163, 235, 1);
+  --chart-3: #334155;
+  --chart-4: #1e293b;
+  --chart-5: #94a3b8;
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: rgba(67, 116, 186, 1);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(112, 163, 235, 1);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #334155;
+  --sidebar-ring: rgba(112, 163, 235, 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Updated gradient button to use primary and primaryLight colors with glow effect */
+  .gradient-button {
+    background: linear-gradient(135deg, rgba(67, 116, 186, 1) 0%, rgba(112, 163, 235, 1) 100%);
+    box-shadow: 0 4px 15px 0 rgba(112, 163, 235, 0.4), 0 0 20px rgba(67, 116, 186, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .gradient-button:hover {
+    box-shadow: 0 8px 25px 0 rgba(112, 163, 235, 0.5), 0 0 30px rgba(67, 116, 186, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Updated floating cards to use white background with subtle shadows */
+  .floating-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    box-shadow: 0 8px 32px rgba(67, 116, 186, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .floating-card:hover {
+    box-shadow: 0 16px 48px rgba(67, 116, 186, 0.15);
+    transform: translateY(-4px);
+  }
+
+  /* Updated diagonal sections to use white and light backgrounds */
+  .diagonal-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    position: relative;
+  }
+
+  .diagonal-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(135deg, transparent 0%, rgba(248, 250, 252, 0.5) 100%);
+    transform: skewY(-2deg);
+    transform-origin: top left;
+  }
+
+  .diagonal-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.5) 0%, transparent 100%);
+    transform: skewY(-2deg);
+    transform-origin: bottom right;
+  }
+
+  /* Updated feature icons to use primary and primaryLight gradient */
+  .feature-icon {
+    background: linear-gradient(135deg, rgba(67, 116, 186, 1) 0%, rgba(112, 163, 235, 1) 100%);
+    box-shadow: 0 4px 20px rgba(112, 163, 235, 0.3);
+  }
+
+  /* Added enhanced navbar bounce animations for desktop and mobile */
+  @keyframes navbarBounce {
+    0% {
+      transform: translateX(-50%) scale(0.95);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(-50%) scale(1.01);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes initialBounce {
+    0% {
+      transform: translateX(-50%) translateY(-3px);
+      opacity: 0.95;
+    }
+    50% {
+      transform: translateX(-50%) translateY(1px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .navbar-bounce {
+    animation: navbarBounce 0.4s ease-out;
+  }
+
+  .navbar-initial-bounce {
+    animation: initialBounce 0.5s ease-out;
+  }
+
+  /* Added slide-in animation for chat messages */
+  @keyframes slideIn {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.4s ease-out;
+  }
+
+  /* New enhanced gradient button with stronger glow */
+  .enhanced-gradient-button {
+    background: linear-gradient(135deg, rgba(67, 116, 186, 1) 0%, rgba(112, 163, 235, 1) 100%);
+    box-shadow: 0 6px 20px 0 rgba(112, 163, 235, 0.5), 0 0 25px rgba(67, 116, 186, 0.4);
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  .enhanced-gradient-button:hover {
+    box-shadow: 0 10px 30px 0 rgba(112, 163, 235, 0.6), 0 0 35px rgba(67, 116, 186, 0.5);
+    transform: translateY(-3px) scale(1.02);
+  }
+
+  .enhanced-gradient-button:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  .dark .floating-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(51, 65, 85, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .dark .diagonal-section {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  }
+
+  /* Enhanced mobile responsiveness */
+  @media (max-width: 768px) {
+    .navbar-bounce {
+      animation: initialBounce 0.3s ease-out;
+    }
+
+    .floating-card {
+      margin: 0 1rem;
+    }
+
+    .diagonal-section::before,
+    .diagonal-section::after {
+      height: 50px;
+    }
+  }
+}
