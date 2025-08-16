@@ -1,11 +1,17 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export function InteractiveBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true) // pastikan render baru setelah client ready
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -29,7 +35,6 @@ export function InteractiveBackground() {
       opacity: number
     }> = []
 
-    // Create particles
     for (let i = 0; i < 50; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -43,11 +48,9 @@ export function InteractiveBackground() {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
       particles.forEach((particle) => {
         particle.x += particle.vx
         particle.y += particle.vy
-
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
 
@@ -56,7 +59,6 @@ export function InteractiveBackground() {
         ctx.fillStyle = `rgba(67, 116, 186, ${particle.opacity})`
         ctx.fill()
       })
-
       requestAnimationFrame(animate)
     }
 
@@ -65,9 +67,15 @@ export function InteractiveBackground() {
     return () => {
       window.removeEventListener("resize", resizeCanvas)
     }
-  }, [])
+  }, [mounted])
+
+  if (!mounted) return null // SSR → tidak render apa2
 
   return (
-    <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ background: "transparent" }} />
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-0"
+      style={{ background: "transparent" }}
+    />
   )
 }
