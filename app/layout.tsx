@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   title: "Tukar - AI Translation App for Brunei",
   description:
     "Bridge language barriers with AI translation. PDF translation, contextual chat AI with Bruneian dialects, and instant image translation.",
-  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -24,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} antialiased`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans" autoCapitalize="sentences">{children}</body>
     </html>
   )
 }
