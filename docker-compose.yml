@@ -1,0 +1,15 @@
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: next15-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app            # Mount kode lokal ke container
+      - /app/node_modules # Jangan share node_modules host <-> container
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
