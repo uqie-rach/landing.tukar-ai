@@ -1,45 +1,59 @@
 import { Body, Container, Head, Heading, Html, Img, Link, Section, Text } from "@react-email/components"
+import { headers } from 'next/headers'
 
 interface EmailTemplateProps {
     email?: string
     fullName?: string
 }
 
-const isProduction = process.env.NODE_ENV === "production";
-const baseUrl = isProduction ? `${process.env.VERCEL_URL}/logo.png` : "http://localhost:3000/logo.png";
+const getBaseUrl = async () : Promise<string> => {
+    if (process.env.NODE_ENV === "production") {
+        // Untuk production, gunakan VERCEL_URL atau ambil dari headers
+        const headersList = await headers()
+        const host = headersList.get('host')
+        const protocol = headersList.get('x-forwarded-proto') || 'https'
 
-export const EmailTemplate = ({ email, fullName }: EmailTemplateProps) => (
-    <Html>
-        <Head />
-        <Body style={main}>
-            <Container style={container}>
-                <Img
-                    src={baseUrl}
-                    width="88"
-                    height="88"
-                    alt="Tukar AI Logo"
-                    style={logo}
-                />
-                <Text style={tertiary}>Welcome {fullName}!</Text>
-                <Heading style={secondary}>Thank you for your interest in Tukar App Demo</Heading>
-                <Section style={codeContainer}>
-                    <Link href={process.env.DEMO_DRIVE_URL} style={{ textDecoration: "none" }}>
-                        <Text style={code}>Access Demo</Text>
-                    </Link>
-                </Section>
-                <Text style={paragraph}>Ready to experience seamless translation?</Text>
-                <Text style={paragraph}>
-                    Contact{" "}
-                    <Link href="mailto:tukar@gmail.com" style={link}>
-                        tukar@gmail.com
-                    </Link>{" "}
-                    if you have any questions about our app.
-                </Text>
-            </Container>
-            <Text style={footer}>Powered by Tukar AI.</Text>
-        </Body>
-    </Html>
-)
+        return `${protocol}://${host}/logo.png`
+    }
+    return "http://localhost:3000/logo.png"
+}
+
+export const EmailTemplate = async ({ email, fullName }: EmailTemplateProps) => {
+    const baseUrl = await getBaseUrl()
+
+    return (
+        <Html>
+            <Head />
+            <Body style={main}>
+                <Container style={container}>
+                    <Img
+                        src={baseUrl}
+                        width="88"
+                        height="88"
+                        alt="Tukar AI Logo"
+                        style={logo}
+                    />
+                    <Text style={tertiary}>Welcome {fullName}!</Text>
+                    <Heading style={secondary}>Thank you for your interest in Tukar App Demo</Heading>
+                    <Section style={codeContainer}>
+                        <Link href={process.env.DEMO_DRIVE_URL} style={{ textDecoration: "none" }}>
+                            <Text style={code}>Access Demo</Text>
+                        </Link>
+                    </Section>
+                    <Text style={paragraph}>Ready to experience seamless translation?</Text>
+                    <Text style={paragraph}>
+                        Contact{" "}
+                        <Link href="mailto:tukar@gmail.com" style={link}>
+                            tukar@gmail.com
+                        </Link>{" "}
+                        if you have any questions about our app.
+                    </Text>
+                </Container>
+                <Text style={footer}>Powered by Tukar AI.</Text>
+            </Body>
+        </Html>
+    )
+}
 
 EmailTemplate.PreviewProps = {
     email: "TUKAR",

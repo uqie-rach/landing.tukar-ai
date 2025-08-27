@@ -12,14 +12,6 @@ export async function POST(req: NextRequest) {
     const from = process.env.RESEND_FROM!;
     const to = process.env.RESEND_TO!;
 
-    console.log(process.env.DEMO_DRIVE_URL)
-    console.log("Running in:", process.env.NODE_ENV);
-    console.log("Sending email to:", isProduction ? email : to);
-    console.log('sending from:', from);
-    const domains = await resend.domains.list();
-
-    console.log('Verified domains:', domains);
-
     const { data, error } = await resend.emails.send({
       from,
       to: !isProduction ? to : email, // kirim ke user di production, ke developer di non-production
